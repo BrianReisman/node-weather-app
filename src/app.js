@@ -8,13 +8,22 @@ const path = require("path");
 
 //*npm modules
 const express = require("express"); //*exposes or returns a function which gets called to create a new server/app
+const hbs = require("hbs");
 const app = express(); //*we don't pass in any arguments or config the server/app here. We do that using various methods provided on the app/server itself
 
-app.set("view engine", "hbs"); //*works with npm i hbs
-
+//Define paths for express config
 const publicDirectorPath = path.join(__dirname, "../public");
-// app.use(express.static(path.join(__dirname, '../public')) //*static() takes the path. Same as above and below combined
+const viewsPath = path.join(__dirname, "../templates/views");
+const partialsPath = path.join(__dirname, "../templates/partials");
+
+// Setup handlebars engine and views location
+app.set("view engine", "hbs"); //*works with npm i hbs
+app.set("views", viewsPath); //*customize this path if you are not namings your views folder, 'views'
+hbs.registerPartials(partialsPath);
+
+// Set up static directory to serve
 app.use(express.static(publicDirectorPath));
+// app.use(express.static(path.join(__dirname, '../public')) //*static() takes the path. Same as above combined with variable defined
 
 // app.get("", (req, res) => {
 // res.send("<h1><code>Weather</code></h1>");
@@ -28,25 +37,28 @@ app.use(express.static(publicDirectorPath));
 //   res.send("<h1>About page</h1>");
 // });
 
-app.get('/', (req,res)=> { //!res.render()
-  res.render('index', {
-    title: 'Weather App',
-    name: "Brian Reisman"
-  }) //*no need for file extention in arg 1. Second arg is an object with an object with all of the values you want that view to access
-})
+app.get("/", (req, res) => {
+  //!res.render()
+  res.render("index", {
+    title: "Weather App",
+    name: "Brian Reisman",
+  }); //*no need for file extention in arg 1. Second arg is an object with an object with all of the values you want that view to access
+});
 
-app.get('/about', (req,res)=> {
-  res.render('about', {
+app.get("/about", (req, res) => {
+  res.render("about", {
     title: "About me",
-    name: "Brian Reisman"
-  })
-})
+    name: "Brian Reisman",
+  });
+});
 
-app.get('/help', (req,res)=>{
-  res.render('help', {
-    message: "I'm here to help! Just let me know how 🧑"
-  })
-})
+app.get("/help", (req, res) => {
+  res.render("help", {
+    helpText: "I'm here to help! Just let me know how 🧑",
+    title: "Help",
+    name: "Brian Reisman",
+  });
+});
 
 app.get("/weather", (req, res) => {
   res.send({ forecast: "lovely!", location: "Cherry HIll, NJ" });

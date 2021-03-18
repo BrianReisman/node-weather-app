@@ -1,6 +1,7 @@
 {{!-- hbs files are html with a few adds --}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +11,12 @@
   <!-- rel = relationship -->
   <title>Weather from hbs</title>
 </head>
+
 <body>
   {{!-- handlebar syntax to inject values dynamically when value name is {{propName}} --}}
-  <h1>{{title}}</h1>
-  <p>Created by {{name}}</p>
+  {{>header}}
+  {{>footer}}
+
 </body>
+
 </html>
