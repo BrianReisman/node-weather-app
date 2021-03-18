@@ -1,17 +1,30 @@
-const express = require("express"); //exposes or returns a function which gets called to create a new server/app
-const app = express(); //we don't pass in any arguments or config the server/app here. We do that using various methods provided on the app/server itself
+//*core modules
+const path = require('path');
 
-app.get("", (req, res) => {
-  res.send("<h1><code>Weather</code></h1>");
-}); //1st arg, the path, here '' == '/' 2nd arg, cb function specifying what happens when this path is visited (arg #1) vs the specified HTTP method  [GET] in this case. The cb function gets 2 arguments. 1st, req (for request) which is an object containing information about the incoming request to the server. 2nd, res (response) also an object which has lots of methods and allow you to customize the response.
+//*config core modules
+// console.log(__dirname) //*this file's directory (folder)
+// console.log(__filename) //*the path to this file itself
+// console.log(path.join(__dirname, '../public')) //*__dirname starts at this file's folder's absolute path. Second argument to path.join() is a string which takes 'instructions' for how to navigate from __dirname *relatively* to where you want to point to
 
-app.get("/help", (req, res) => {
-  res.send([{ name: "Brian" }, { name: "Sarah" }]);
-});
+//*npm modules
+const express = require("express"); //*exposes or returns a function which gets called to create a new server/app
+const app = express(); //*we don't pass in any arguments or config the server/app here. We do that using various methods provided on the app/server itself
 
-app.get("/about", (req, res) => {
-  res.send("<h1>About page</h1>");
-});
+const publicDirectorPath = path.join(__dirname, '../public')
+// app.use(express.static(path.join(__dirname, '../public')) //*static() takes the path. Same as above and below combined
+app.use(express.static(publicDirectorPath))
+
+// app.get("", (req, res) => {
+  // res.send("<h1><code>Weather</code></h1>");
+// }); //*1st arg, the path, here '' == '/' 2nd arg, cb function specifying what happens when this path is visited (arg #1) vs the specified HTTP method  [GET] in this case. The cb function gets 2 arguments. 1st, req (for request) which is an object containing information about the incoming request to the server. 2nd, res (response) also an object which has lots of methods and allow you to customize the response.
+
+// app.get("/help", (req, res) => {
+//   res.send([{ name: "Brian" }, { name: "Sarah" }]);
+// });
+
+// app.get("/about", (req, res) => {
+//   res.send("<h1>About page</h1>");
+// });
 
 app.get("/weather", (req, res) => {
   res.send({ forecast: "lovely!", location: "Cherry HIll, NJ" });
