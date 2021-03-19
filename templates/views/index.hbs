@@ -7,14 +7,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" href="/img/icon.png" />
   <script src='./js/app.js'></script>
   <!-- rel = relationship -->
-  <title>Weather from hbs</title>
+  <title>Weather</title>
 </head>
 
 <body>
   {{!-- handlebar syntax to inject values dynamically when value name is {{propName}} --}}
-  {{>header}}
+
+  <div class="main-content">
+    {{>header}}
+    <p>Use this site to get your weather</p>
+  </div>
   {{>footer}}
 
 </body>
