@@ -64,6 +64,24 @@ app.get("/weather", (req, res) => {
   res.send({ forecast: "lovely!", location: "Cherry HIll, NJ" });
 });
 
+//!Wildcard character added to a subroute of help
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Help article not found.",
+    name: "Brian Reisman",
+  });
+});
+
+//!This needs to come last since it handles 404. * (the wildcard character) matches everything that hasn't been matched so far
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Page not found.",
+    name: "Brian Reisman",
+  });
+});
+
 app.listen(3000, () => {
   console.log("server is up on port 3000!");
 }); //a method that gets called once per app/server. 1st arg is the port. 2nd is an optional callback function
