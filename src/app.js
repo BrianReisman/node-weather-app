@@ -61,7 +61,27 @@ app.get("/help", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
-  res.send({ forecast: "lovely!", location: "Cherry HIll, NJ" });
+  if (!req.query.address) {
+    return res.send({
+      error: "An address must be provided",
+    });
+  }
+  res.send({
+    forecast: "lovely!",
+    location: "Cherry HIll, NJ",
+    address: req.query.address,
+  });
+});
+
+app.get("/products", (req, res) => {
+  if (!req.query.search) {
+    return res.send({
+      error: "You must provide a search term",
+    });
+  }
+  res.send({
+    products: [],
+  });
 });
 
 //!Wildcard character added to a subroute of help
