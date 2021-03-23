@@ -1,5 +1,7 @@
 //*core modules
 const path = require("path");
+const geoCode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 //*config core modules
 // console.log(__dirname) //*this file's directory (folder)
@@ -66,10 +68,22 @@ app.get("/weather", (req, res) => {
       error: "An address must be provided",
     });
   }
-  res.send({
-    forecast: "lovely!",
-    location: "Cherry HIll, NJ",
-    address: req.query.address,
+
+  geoCode(req.query.address, (error, { lat, long, location } = {}) => {
+    if (error) {
+      return res.send({ error });
+    }
+    // if we pass this if, we know things went well, game on!
+    forecast(lat, long, (error, forecastData) => {
+      if (error) {
+        return res.send({ error });
+      }
+      res.send({
+        forecast: forecastData,
+        location,
+        address: req.query.address,
+      });
+    });
   });
 });
 
@@ -104,4 +118,5 @@ app.get("*", (req, res) => {
 
 app.listen(3000, () => {
   console.log("server is up on port 3000!");
-}); //a method that gets called once per app/server. 1st arg is the port. 2nd is an optional callback function
+});
+//a method that gets called once per app/server. 1st arg is the port. 2nd is an optional callback function
