@@ -4,7 +4,7 @@ body {
   max-width: 650px; /* sdf*/
   margin: 0 auto; /* 0 is no value top/bottom. auto left/right*/
   padding: 0 16px;
-  
+
   /* Brian's */
   border: 1px solid blue;
   box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
 }
 
-.main-content{
+.main-content {
   /* flex-grow: 1; says take up all left over space */
   flex-grow: 1;
 }
@@ -44,4 +44,18 @@ header a {
 
 .headshot {
   width: 250px;
+}
+
+input {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #888888;
+  background-color: #888888;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
 }
