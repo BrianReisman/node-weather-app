@@ -12,6 +12,7 @@ const forecast = require("./utils/forecast");
 const express = require("express"); //*exposes or returns a function which gets called to create a new server/app
 const hbs = require("hbs");
 const app = express(); //*we don't pass in any arguments or config the server/app here. We do that using various methods provided on the app/server itself
+const PORT = process.env.PORT || 3000 //*since process.env.PORT doesn't currently exist locally, logical OR helps here
 
 //Define paths for express config
 const publicDirectorPath = path.join(__dirname, "../public");
@@ -116,7 +117,7 @@ app.get("*", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("server is up on port 3000!");
+app.listen(PORT, () => {
+  console.log(`server is up on port ${PORT}!`);
 });
 //a method that gets called once per app/server. 1st arg is the port. 2nd is an optional callback function
